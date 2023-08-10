@@ -1,0 +1,91 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class HotelManagementSystemApp extends JFrame implements ActionListener {
+    // Declare your components
+    JLabel nameLabel, addressLabel;
+    JTextField nameTextField, addressTextField;
+    JTextArea detailsTextArea;
+    JCheckBox wifiCheckBox;
+    JRadioButton singleRoomRadioButton, doubleRoomRadioButton;
+    JComboBox<String> roomTypeComboBox;
+    JButton submitButton;
+
+    public HotelManagementSystemApp() {
+        // Initialize the frame
+        setTitle("Hotel Management System");
+        setSize(400, 500);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new FlowLayout());
+
+        // Initialize your components
+        nameLabel = new JLabel("Name:");
+        nameTextField = new JTextField(20);
+
+        addressLabel = new JLabel("Address:");
+        addressTextField = new JTextField(20);
+
+        detailsTextArea = new JTextArea(10, 30);
+        JScrollPane scrollPane = new JScrollPane(detailsTextArea);
+
+        wifiCheckBox = new JCheckBox("WiFi");
+
+        singleRoomRadioButton = new JRadioButton("Single Room");
+        doubleRoomRadioButton = new JRadioButton("Double Room");
+        ButtonGroup roomTypeGroup = new ButtonGroup();
+        roomTypeGroup.add(singleRoomRadioButton);
+        roomTypeGroup.add(doubleRoomRadioButton);
+
+        String[] roomTypes = {"Standard", "Deluxe", "Suite"};
+        roomTypeComboBox = new JComboBox<>(roomTypes);
+
+        submitButton = new JButton("Submit");
+        submitButton.addActionListener(this);
+
+        // Add components to the frame
+        add(nameLabel);
+        add(nameTextField);
+
+        add(addressLabel);
+        add(addressTextField);
+
+        add(scrollPane);
+
+        add(wifiCheckBox);
+
+        add(singleRoomRadioButton);
+        add(doubleRoomRadioButton);
+
+        add(roomTypeComboBox);
+
+        add(submitButton);
+
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == submitButton) {
+            // Retrieve data from components
+            String name = nameTextField.getText();
+            String address = addressTextField.getText();
+            String details = detailsTextArea.getText();
+            boolean hasWiFi = wifiCheckBox.isSelected();
+            String roomType = (singleRoomRadioButton.isSelected()) ? "Single Room" : "Double Room";
+            String selectedRoomType = (String) roomTypeComboBox.getSelectedItem();
+
+            // Display the data (You can replace this with your desired output mechanism)
+            JOptionPane.showMessageDialog(this,
+                    "Name: " + name +
+                    "\nAddress: " + address +
+                    "\nDetails: " + details +
+                    "\nWiFi: " + hasWiFi +
+                    "\nRoom Type: " + roomType +
+                    "\nSelected Room Type: " + selectedRoomType);
+        }
+    }
+
+    public static void main(String[] args) {
+        new HotelManagementSystemApp();
+    }
+}
